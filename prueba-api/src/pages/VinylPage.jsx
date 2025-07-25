@@ -6,7 +6,7 @@ function VinylPage() {
     return (
         <>
             <h1>Gestion Vinilos</h1>
-            <NavLink to={"/vinilos/listar/"}>Listar Vinilos</NavLink>
+            <NavLink to={"/vinilos/listar/"}>Listar Vinilos</NavLink>{" | | "}
             <NavLink to={"/vinilos/crear/"}>Crear Vinilos</NavLink>
 
             <Routes>

@@ -14,12 +14,28 @@ function CategoryList() {
     }
   }
 
+  async function deleteCategory(id) {
+    try {
+      console.log(id);
+      const response = await api.delete(`/generos/${id}/`);
+      console.log(response);
+      if (response.status === 204) {
+        alert("Genero eliminado");
+        fetchCategorias();
+      } else {
+        alert("No se pudo eliminar");
+      }
+    } catch (e) {
+      console.log('Se ha producido un error');
+    }
+  }
+
   useEffect(() => {
     fetchCategorias();
   }, [])
 
       return (
-          <table>
+          <table className="table">
               <thead>
                   <tr>
                       <th>ID</th>
@@ -28,14 +44,21 @@ function CategoryList() {
                   </tr>
               </thead>
               <tbody>
-                  {categorias.map(c => 
-                  <tr>
-                      <td>{c.id}</td>
-                      <td>{c.nombre}</td>
-                      <td><button>Eliminar</button></td>    
-                  </tr>
-                  )}
-              </tbody>
+  {categorias.map((c, idx) => {
+    console.log("Renderizando fila:", c);
+    return (
+      <tr key={c.id}>
+        <td>{c.id}</td>
+        <td>{c.nombre}</td>
+        <td>
+          <button className="btn btn-danger" onClick={() => deleteCategory(c.id)}>
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    );
+  })}
+</tbody>
           </table>
       )
 }

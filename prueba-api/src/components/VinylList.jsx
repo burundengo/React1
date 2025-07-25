@@ -9,7 +9,6 @@ function VinylList() {
         try {
             const response = await api.get("albums/")
             if (response.status === 200){
-                console.log(response.data)
                 setVinilo(response.data)
             }
         } catch(e){
@@ -21,16 +20,18 @@ function VinylList() {
         fetchVinilos();
     }, [])
 
+    const handleDelete = (id, titulo, artista) => {
+        setVinilo(vinilos.filter(v => v.id !== id));
+        alert(`Vinilo eliminado: "${titulo}" de ${artista}`);
+    };
+
     return (
         <>
         <h2>Listado de Vinilos</h2>
-
-        <div>
-            {
-                vinilos.map((v) =>( 
-                <VinylItem /> 
+        <div className="d-flex flex-wrap align-items-stretch m-8">
+            {vinilos.map((v) =>( 
+                <VinylItem key={v.id} vinilo={v} onDelete={handleDelete} /> 
             ))}
-           
         </div>
         </>
     )
